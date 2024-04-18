@@ -46,6 +46,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.29.2",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.2.0",
     "getmac": "^6.6.0",
     "nfc-pcsc": "^0.8.1",
     "react": "^18.2.0",
