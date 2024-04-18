@@ -18,9 +18,7 @@ const validChannels = [
 contextBridge.exposeInMainWorld("ipcRenderer", {
   send: (channel: string, data: any) => {
     // whitelist channels
-    console.log("send to channel - ", channel);
     if (validChannels.includes(channel)) {
-      console.log("Success send");
       ipcRenderer.send(channel, data);
     }
   },
@@ -37,4 +35,16 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }
   },
+
+  removeAllListeners: (channel: string) => {
+    if (validChannels.includes(channel)) {
+      ipcRenderer.removeAllListeners(channel);
+    }
+  },
+});
+
+contextBridge.exposeInMainWorld("electronStore", {
+  get: (key: string) => ipcRenderer.invoke("getStoreValue", key),
+  set: (key: string, value: any) =>
+    ipcRenderer.invoke("setStoreValue", key, value),
 });

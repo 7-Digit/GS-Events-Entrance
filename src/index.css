@@ -1,9 +1,6 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
 }
 
 .button-33 {
@@ -36,4 +33,128 @@ body {
     rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
     rgba(44, 187, 99, 0.25) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
+}
+
+.scanned-cards-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-block: 1rem;
+  color: white;
+  height: 100%;
+  width: 98%;
+}
+
+.black {
+  color: black;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-orange {
+  background-color: orange;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.last-entry {
+  width: 100%;
+  color: white;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid white;
+}
+
+.heading-with-border {
+  color: white;
+  border-bottom: 1px solid white;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.last-entry-text {
+  padding-left: 1rem;
+}
+
+.w-33 {
+  width: 32.9%;
+}
+
+.mtb-1 {
+  margin: 1rem 0;
+}
+
+.mb-05 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.ta-l {
+  text-align: left;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  border: 1px solid white;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  /* make some cool box shadow */
+  /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2); */
+  /* make some white shadow */
+  box-shadow: 0 0 50px 0 rgba(255, 255, 255, 0.2);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  padding-top: 1rem;
+}
+
+.clock {
+  padding-block: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.al-l {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.middle-section-heading {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid white;
+  width: 100%;
+  text-align: center;
 }
