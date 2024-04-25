@@ -140,6 +140,7 @@ const App = () => {
         timestamp: new Date().getTime(),
         time,
         isInactive: response.isInactive,
+        companyName: response.companyName,
       };
 
       setScannedCardData(data);
@@ -228,17 +229,21 @@ const App = () => {
               >
                 <h4 className="last-entry-text">
                   {entry.cardSeqNumber
-                    ? `#${entry.cardSeqNumber || ""} - ${
-                        entry.ownerName || "Невалидно"
+                    ? `#${entry.cardSeqNumber + ""} ${
+                        entry.ownerName
+                          ? `${entry.ownerName} - `
+                          : !entry.valid
+                          ? "Невалидно - "
+                          : ""
                       }`
-                    : "Нерегистрирана карта"}
+                    : "Нерегистрирана карта - "}
                   {entry.isExpired
-                    ? `  - Услугата "${entry.serviceName}" е изтекла`
+                    ? `  - Услугата "${entry.serviceName}" е изтекла - `
                     : ""}
                   {entry.hasEntryInLastPeriod && entry.valid
-                    ? "  - Повторно влизане"
+                    ? " Повторно влизане - "
                     : ""}
-                  {` - ${entry.time}`}
+                  {` ${entry.time}`}
                 </h4>
               </div>
             );
@@ -276,7 +281,11 @@ const App = () => {
                     ? `Услугата "${scannedCardData.serviceName}" е изтекла`
                     : scannedCardData.isInactive
                     ? "Услугата на картата не е активна"
-                    : `Няма услуга "${scannedCardData.serviceName}"`
+                    : `Няма услуга ${
+                        scannedCardData.serviceName
+                          ? `"${scannedCardData.serviceName}"`
+                          : ""
+                      }`
                   : ""}
               </h1>
             )}
@@ -315,6 +324,11 @@ const App = () => {
             }}
           >
             <h2 className="mtb-1 heading-with-border">Информация за карта</h2>
+            {scannedCardData.companyName ? (
+              <h3>Фирма: {scannedCardData.companyName}</h3>
+            ) : (
+              ""
+            )}
             <h3 className="mtb-1 ml-1">
               {scannedCardData.totalEntries
                 ? "Общо влизания с текущата карта - " +
