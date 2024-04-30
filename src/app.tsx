@@ -12,6 +12,7 @@ const App = () => {
 
   const [allEntries, setAllEntries] = useState([]);
   const [enteredValidCards, setEnteredValidCards] = useState();
+  const [currentCardEntries, setCurrentCardEntries] = useState([]);
 
   const [scannedCardData, setScannedCardData] = useState({
     valid: null,
@@ -31,6 +32,19 @@ const App = () => {
     hasTriedToConnect: false,
     name: "",
   });
+
+  useEffect(() => {
+    if (scannedCardData.valid) {
+      const validEntries = [...allEntries]
+        .reverse()
+        .filter(
+          (x) => x.valid && x.cardSeqNumber === scannedCardData.cardSeqNumber
+        );
+      setCurrentCardEntries(validEntries);
+    } else {
+      setCurrentCardEntries([]);
+    }
+  }, [scannedCardData]);
 
   useEffect(() => {
     const ipcRenderer = (window as any).ipcRenderer;
@@ -86,11 +100,9 @@ const App = () => {
                 return new Date(x.timestamp).getTime() > yesterday.getTime();
               });
             }
-            console.log(entries, "entries");
-            console.log(currentDayEntries, "currentDayEntries");
-            if (currentDayEntries.length !== entries.length) {
-              // store.set("entries", currentDayEntries);
-            }
+            // if (currentDayEntries.length !== entries.length) {
+            //   // store.set("entries", currentDayEntries);
+            // }
 
             const validEntries = currentDayEntries.filter((x) => x.valid);
             const uniqueCards = Array.from(
@@ -103,6 +115,28 @@ const App = () => {
         });
       }
     });
+
+    ipcRenderer?.on("reader-connected", () => {
+      console.log("Reader connected");
+      setReaderConnected(true);
+    });
+
+    ipcRenderer?.on("reader-disconnected", () => {
+      console.log("Reader disconnected");
+      setReaderConnected(false);
+    });
+
+    return () => {
+      ipcRenderer?.removeAllListeners("place-connected");
+      ipcRenderer?.removeAllListeners("card-scanned");
+      ipcRenderer?.removeAllListeners("reader-connected");
+      ipcRenderer?.removeAllListeners("reader-disconnected");
+    };
+  }, []);
+
+  useEffect(() => {
+    const ipcRenderer = (window as any).ipcRenderer;
+    const store = (window as any).electronStore;
 
     ipcRenderer?.on("card-scanned", (response) => {
       const valid = response.valid;
@@ -129,7 +163,7 @@ const App = () => {
         ownerName: response.ownerName,
         cardSeqNumber: response.cardData?.seqNumber,
         entries: response.serviceUsages,
-        totalEntries: response.totalUsages,
+        totalEntries: response.totalUsages + 1,
         isExpired: response.isExpired,
         firstUse: firstUseDate,
         validTo: validToDate,
@@ -146,9 +180,8 @@ const App = () => {
       setScannedCardData(data);
       setAllEntries((prev) => [...prev, data]);
 
-      console.log(new Date().getDay());
+      const validEntries = [...allEntries, data].filter((x) => x.valid);
 
-      const validEntries = allEntries.filter((x) => x.valid);
       const uniqueCards = Array.from(
         new Set([...validEntries.map((x) => x.cardSeqNumber)])
       ).length;
@@ -161,23 +194,10 @@ const App = () => {
       });
     });
 
-    ipcRenderer?.on("reader-connected", () => {
-      console.log("Reader connected");
-      setReaderConnected(true);
-    });
-
-    ipcRenderer?.on("reader-disconnected", () => {
-      console.log("Reader disconnected");
-      setReaderConnected(false);
-    });
-
     return () => {
-      ipcRenderer?.removeAllListeners("place-connected");
       ipcRenderer?.removeAllListeners("card-scanned");
-      ipcRenderer?.removeAllListeners("reader-connected");
-      ipcRenderer?.removeAllListeners("reader-disconnected");
     };
-  }, []);
+  }, [allEntries]);
 
   return (
     <div className="main-container">
@@ -336,10 +356,10 @@ const App = () => {
                 : ""}
               <br />
               <br />
-              {scannedCardData.entries?.length ? "Последни влизания" : ""}
+              {currentCardEntries.length ? "Последни влизания" : ""}
             </h3>
-            {scannedCardData.entries?.map((x, i) => {
-              const date = new Date(x.used_at);
+            {currentCardEntries.map((x, i) => {
+              const date = new Date(x.timestamp);
               const day = date.toLocaleDateString("bg-BG", {
                 day: "2-digit",
                 month: "2-digit",
