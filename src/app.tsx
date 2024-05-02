@@ -325,12 +325,12 @@ const App = () => {
                   </h3>
                 )}
                 {scannedCardData.validTo && (
-                  <h3 className="mb-05">
+                  <h3 className="mb-05 text-center">
                     {`Дата на валидност - ${scannedCardData.validTo}`}
                   </h3>
                 )}
                 {scannedCardData.firstUse && (
-                  <h3 className="mb-05">
+                  <h3 className="mb-05 text-center">
                     {`Дата на активация - ${scannedCardData.firstUse}`}
                   </h3>
                 )}
