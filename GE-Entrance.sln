@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GE-Entrance", "GE-Entrance\GE-Entrance.csproj", "{0F5E693A-B65F-4609-8B52-26C0C0E17409}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F5E693A-B65F-4609-8B52-26C0C0E17409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5E693A-B65F-4609-8B52-26C0C0E17409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5E693A-B65F-4609-8B52-26C0C0E17409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5E693A-B65F-4609-8B52-26C0C0E17409}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D630950-F230-4868-9DDE-E895CE8AE74B}
+	EndGlobalSection
+EndGlobal
